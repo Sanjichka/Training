@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Trening.Models.Training>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h1 style="color:#ff5660; font-size:x-large">Other Trainings:</h1>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainingName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Platform)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyCoache)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumClMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Coach)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainingName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Platform)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyCoache)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumClMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Coach.Username)
+            </td>
+            <td>
+                <a asp-controller="Trainings" asp-action="CoachPoTraining1" asp-route-id="@item.ID">Coach</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

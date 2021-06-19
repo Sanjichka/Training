@@ -58,6 +58,15 @@ namespace Trening.Controllers
             return View(coach);
         }
 
+        public IActionResult CoachPoTraining1(int? id)
+        {
+            Coach coach = _context.Training.Where(s => s.ID == id).Select(s => s.Coach).FirstOrDefault();
+
+            ViewData["Coach"] = coach.Username;
+
+            return View(coach);
+        }
+
         /*public IActionResult Users(int? id)
         {
             IEnumerable<User> users = (IEnumerable<User>)_context.User
