@@ -1,0 +1,56 @@
+﻿@model Trening.ViewModels.Filter3
+
+@{
+    ViewData["Title"] = "EnrollmentsUser";
+}
+
+<br />
+<h4 style="color:#ff5660; font-weight:bolder">Trainings for User: @ViewData["User"]</h4>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Enrollments.FirstOrDefault().StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enrollments.FirstOrDefault().FinishDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enrollments.FirstOrDefault().Owe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enrollments.FirstOrDefault().User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enrollments.FirstOrDefault().Training)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Enrollments) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinishDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Owe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Embg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Training.Platform)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

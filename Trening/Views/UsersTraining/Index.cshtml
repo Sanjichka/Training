@@ -1,0 +1,73 @@
+﻿@model Trening.ViewModels.Filter3
+
+@{
+    ViewData["Title"] = "TrainingsUser";
+}
+
+<br />
+<h4 style="color:#ff5660; font-weight:bolder">Trainings for User: @ViewData["User"]</h4>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().TrainingName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().Platform)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().LinkPlatform)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().CompanyCoache)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().NumClMonth)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Trainings)
+        {
+            var i = Model.Enrollments.FirstOrDefault();
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrainingName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Platform)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LinkPlatform)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyCoache)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumClMonth)
+                </td>
+                <td>
+                    <a asp-controller="Trainings" asp-action="CoachPoTraining" asp-route-id="@item.ID">Coach</a> |
+                    <a asp-controller="Trainings" asp-action="Details1" asp-route-id="@item.ID">Details_Training</a> |
+                    <a asp-controller="EnrollmentsUser" asp-action="Index" asp-route-id="@i.UserID">Enrollment</a>
+                </td>
+            </tr>}
+        }
+    </tbody>
+</table>

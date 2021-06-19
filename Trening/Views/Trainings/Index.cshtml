@@ -1,0 +1,91 @@
+﻿@model Trening.ViewModels.Filter1
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h1>Trainings</h1>
+
+<p>
+    <a style="font-size: x-large;" asp-action="Create">Create New</a>
+</p>
+
+
+<form asp-controller="Trainings" asp-action="Index" method="get">
+    <span style="color:#ff5660; font-size:large">Name: </span> <input type="text" asp-for="searchName" />
+    <span>&nbsp;&nbsp;</span>
+    <span style="color:#ff5660; font-size:large">Times per Month: </span><select asp-for="searchBrMesec" asp-items="Model.BrMesecList">
+        <option value="">All</option>
+    </select>
+    <span>&nbsp;&nbsp;</span>
+    <span style="color:#ff5660; font-size:large">Max Price: </span> <input type="text" asp-for="searchPrice" />
+    <span>&nbsp;</span>
+    <input type="submit" value="Filter" />
+</form>
+
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().TrainingName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().Platform)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().LinkPlatform)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().CompanyCoache)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().NumClMonth)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Trainings)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrainingName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Platform)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LinkPlatform)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyCoache)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumClMonth)
+                </td>
+                <td>
+                    <a asp-action="CoachPoTraining" asp-route-id="@item.ID">Coach</a> |
+                    <a asp-action="UsersPoTraining" asp-route-id="@item.ID">Users</a> |
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

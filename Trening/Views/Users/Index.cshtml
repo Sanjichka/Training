@@ -1,0 +1,111 @@
+﻿@model Trening.ViewModels.Filter
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h1>Users</h1>
+
+<p>
+    <a style="font-size: x-large;" asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Users" asp-action="Index" method="get">
+    <span style="color:#ff5660; font-size:large">Username: </span> <input type="text" asp-for="searchUsername" />
+    <span>&nbsp;&nbsp;</span>
+    <span style="color:#ff5660; font-size:large">Mail: </span> <input type="text" asp-for="searchMail" />
+    <span>&nbsp;&nbsp;</span>
+    <span style="color:#ff5660; font-size:large">City: </span><select asp-for="searchCity" asp-items="Model.CityList">
+        <option value="">All</option>
+    </select>
+    <span>&nbsp;&nbsp;</span>
+    <input type="submit" value="Filter" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().EnrollmentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().ExerciseLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Mail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Users)
+        {
+        <tr>
+            <td>
+                @{ if (item.gender != null)
+                    {
+                        if (item.gender.ToUpper().Equals("F"))
+                        {<img src="~/images/female_user.png"
+                              class="rounded-circle"
+                              height="30" width="30"
+                              asp-append-version="true" />}
+                        else if (item.gender.ToUpper().Equals("M"))
+                        {<img src="~/images/male_user.png"
+                              class="rounded-circle"
+                              height="30" width="30"
+                              asp-append-version="true" />}
+                        else
+                        {<img src="~/images/john_doe.png"
+                              class="rounded-circle"
+                              height="30" width="30"
+                              asp-append-version="true" />}
+                    }
+                }@item.Username
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExerciseLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mail)
+            </td>
+            <td>
+                <a asp-controller="UsersTraining" asp-action="Index" asp-route-id="@item.ID">Trainings</a> |
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
