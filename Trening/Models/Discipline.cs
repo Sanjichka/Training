@@ -31,9 +31,5 @@ namespace Trening.Models
         [StringLength(28)]
         public string Ground { get; set; }
 
-        [Display(Name = "Training")]
-        public int? TrainingID { get; set; }
-        public Training Training { get; set; }
-
     }
 }

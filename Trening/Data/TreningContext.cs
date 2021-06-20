@@ -40,12 +40,6 @@ namespace Trening.Data
                     .HasForeignKey(m => m.CoachID).OnDelete(DeleteBehavior.NoAction);
             // .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Discipline>()
-           .HasOne(m => m.Training)
-           .WithMany(t => t.Discipline)
-           .HasForeignKey(m => m.TrainingID).OnDelete(DeleteBehavior.NoAction);
-
-
             modelBuilder.Entity<Enrollment>()
             .HasOne(m => m.Training)
                     .WithMany(t => t.Enrollments)

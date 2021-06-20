@@ -10,6 +10,9 @@
 <p>
     <a style="font-size: x-large;" asp-action="Create">Create New</a>
 </p>
+<p>
+    <a style="font-size: x-large;" asp-controller="Disciplines" asp-action="Index">View Disciplines Chart</a>
+</p>
 
 
 <form asp-controller="Trainings" asp-action="Index" method="get">
@@ -50,42 +53,48 @@
             <th>
                 @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().NumClMonth)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().Discipline)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Trainings)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TrainingName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Platform)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LinkPlatform)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyCoache)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumClMonth)
-                </td>
-                <td>
-                    <a asp-action="CoachPoTraining" asp-route-id="@item.ID">Coach</a> |
-                    <a asp-action="UsersPoTraining" asp-route-id="@item.ID">Users</a> |
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainingName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Platform)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LinkPlatform)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyCoache)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumClMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discipline)
+            </td>
+            <td>
+                <a asp-action="CoachPoTraining" asp-route-id="@item.ID">Coach</a> |
+                <a asp-action="UsersPoTraining" asp-route-id="@item.ID">Users</a> |
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

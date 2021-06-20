@@ -150,7 +150,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,TrainingName,Platform,LinkPlatform,CompanyCoaches,StartDate,Price,NumClMonth,CoachID")] Training training)
+        public async Task<IActionResult> Create([Bind("ID,TrainingName,Platform,LinkPlatform,CompanyCoache,StartDate,Price,Discipline,NumClMonth,CoachID")] Training training)
         {
             if (ModelState.IsValid)
             {
@@ -184,7 +184,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,TrainingName,Platform,LinkPlatform,CompanyCoaches,StartDate,Price,NumClMonth,CoachID")] Training training)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,TrainingName,Platform,LinkPlatform,CompanyCoache,StartDate,Price,Discipline,NumClMonth,CoachID")] Training training)
         {
             if (id != training.ID)
             {

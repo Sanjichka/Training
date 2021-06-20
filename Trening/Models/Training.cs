@@ -41,11 +41,14 @@ namespace Trening.Models
         [Display(Name ="Times Per Month")]
         public int NumClMonth { get; set; }
 
+        [Required]
+        [StringLength(28)]
+        public string Discipline { get; set; }
+
         [Display(Name = "Coach")]
         public int? CoachID { get; set; }
         public Coach Coach { get; set; }
 
-        public ICollection<Discipline> Discipline { get; set; }
         public ICollection<Enrollment> Enrollments { get; set; }
 
     }

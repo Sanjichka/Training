@@ -1,69 +1,83 @@
-﻿@model IEnumerable<Trening.Models.Training>
+﻿@model Trening.ViewModels.Filter4
 
 @{
     ViewData["Title"] = "Index";
 }
 
+<p>
+    <a style="font-size: x-large;" asp-controller="Disciplines" asp-action="Index1">View Disciplines Chart</a>
+</p>
 <br />
 <h1 style="color:#ff5660; font-size:x-large">Other Trainings:</h1>
+<br />
+
+<form asp-controller="TrainingsUser" asp-action="Index" method="get">
+    <span style="color:#ff5660; font-size:large">Discipline: </span><select asp-for="searchType" asp-items="Model.TypeList">
+        <option value="">All</option>
+    </select>
+    <span>&nbsp;&nbsp;</span>
+    <input type="submit" value="Filter" />
+    <span>| <a style="font-size: large;" asp-action="Index">All Other Trainings</a></span>
+</form>
 <br />
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TrainingName)
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().TrainingName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Platform)
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().Platform)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CompanyCoache)
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().CompanyCoache)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartDate)
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().StartDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumClMonth)
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().NumClMonth)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Coach)
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().Discipline)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrainingName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Platform)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompanyCoache)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumClMonth)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Coach.Username)
-            </td>
-            <td>
-                <a asp-controller="Trainings" asp-action="CoachPoTraining1" asp-route-id="@item.ID">Coach</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Trainings)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrainingName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Platform)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyCoache)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumClMonth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discipline)
+                </td>
+                <td>
+                    <a asp-controller="Trainings" asp-action="CoachPoTraining1" asp-route-id="@item.ID">Coach</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

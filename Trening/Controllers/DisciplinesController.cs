@@ -25,6 +25,11 @@ namespace Trening.Controllers
             return View(await _context.Discipline.ToListAsync());
         }
 
+        public async Task<IActionResult> Index1()
+        {
+            return View(await _context.Discipline.ToListAsync());
+        }
+
         // GET: Disciplines/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -56,7 +61,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,DisciplineName,ProfilePicture,Type,Equipment,Ground")] Discipline discipline)
+        public async Task<IActionResult> Create([Bind("ID,DisciplineName,Type,Equipment,Ground")] Discipline discipline)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +93,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,DisciplineName,ProfilePicture,Type,Equipment,Ground")] Discipline discipline)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,DisciplineName,Type,Equipment,Ground")] Discipline discipline)
         {
             if (id != discipline.ID)
             {
