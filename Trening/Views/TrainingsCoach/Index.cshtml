@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Trening.Models.Training>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h4 style="color:#ff5660; font-size:x-large">@ViewData["Coach"]'s Trainings:</h4>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainingName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Platform)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkPlatform)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyCoache)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumClMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discipline)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainingName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Platform)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LinkPlatform)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyCoache)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumClMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discipline)
+            </td>
+            <td>
+                <a asp-action="Statistika" asp-route-id="@item.ID">Statistics</a> |
+                <a asp-action="UserPoTraining1" asp-route-id="@item.ID">Users</a> |
+                <a asp-action="UserPoTraining" asp-route-id="@item.ID">Users_Debt</a> |
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -40,6 +40,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Coaches.FirstOrDefault().Certificates)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Coaches.FirstOrDefault().PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Coaches.FirstOrDefault().Mail)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -60,6 +66,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Certificates)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mail)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

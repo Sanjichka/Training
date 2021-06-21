@@ -26,8 +26,10 @@ namespace Trening.Controllers
             /*var treningContext = _context.Training.Include(t => t.Coach);
             return View(await treningContext.ToListAsync());*/
 
-
             IQueryable<Training> trainings = _context.Training.AsQueryable();
+
+            trainings = trainings.OrderBy(x => x.Price);
+                    
 
             IQueryable<Enrollment> enrollments = _context.Enrollment.AsQueryable();
             enrollments = enrollments.Include(c => c.User).Include(c => c.Training);

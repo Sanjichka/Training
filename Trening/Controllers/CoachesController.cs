@@ -81,7 +81,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Username,ProfilePicture,BirthDate,ExerciseRank,Awards,Certificates")] Coach coach)
+        public async Task<IActionResult> Create([Bind("ID,Username,ProfilePicture,BirthDate,ExerciseRank,Awards,Certificates,PhoneNumber,Mail")] Coach coach)
         {
             if (ModelState.IsValid)
             {
@@ -113,7 +113,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Username,ProfilePicture,BirthDate,ExerciseRank,Awards,Certificates")] Coach coach)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Username,ProfilePicture,BirthDate,ExerciseRank,Awards,Certificates,PhoneNumber,Mail")] Coach coach)
         {
             if (id != coach.ID)
             {

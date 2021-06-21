@@ -1,0 +1,78 @@
+﻿@model Trening.ViewModels.Filter6
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<br />
+<h4 style="color:#ff5660; font-size:x-large">Training: @ViewData["Training"]</h4>
+<br />
+<h4 style="color:#ff5660; font-size:x-large">Enrolled Users:</h4>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().EnrollmentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().ExerciseLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Mail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model.Enrollments)
+        {
+            <tr>
+                @{User user = Model.Users.Where(x => x.ID == i.UserID).FirstOrDefault();}
+
+                <td>
+                    <h6>@user.Username</h6>
+                </td>
+                <td>
+                    <h6>@user.FullName</h6>
+                </td>
+                <td>
+                    <h6>@user.gender</h6>
+                </td>
+                <td>
+                    <h6>@user.City</h6>
+                </td>
+                <td>
+                    <h6>@user.EnrollmentDate</h6>
+                </td>
+                <td>
+                    <h6>@user.ExerciseLevel</h6>
+                </td>
+                <td>
+                    <h6>@user.PhoneNumber</h6>
+                </td>
+                <td>
+                    <h6>@user.Mail</h6>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+

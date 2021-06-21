@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Trening.Data;
 using Trening.Models;
+using Trening.ViewModels;
 
 namespace Trening.Controllers
 {
@@ -18,146 +19,59 @@ namespace Trening.Controllers
         {
             _context = context;
         }
-
-        // GET: EnrollmentsAdmin
-        public async Task<IActionResult> Index()
+        
+        public IActionResult Administrator_Create()
         {
-            var treningContext = _context.Enrollment.Include(e => e.Training).Include(e => e.User);
-            return View(await treningContext.ToListAsync());
-        }
 
-        // GET: EnrollmentsAdmin/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
+            var users = _context.User.AsEnumerable();
+            users = users.OrderBy(s => s.Username);
+            EnrolAdminVM viewmodel = new EnrolAdminVM
             {
-                return NotFound();
-            }
-
-            var enrollment = await _context.Enrollment
-                .Include(e => e.Training)
-                .Include(e => e.User)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (enrollment == null)
-            {
-                return NotFound();
-            }
-
-            return View(enrollment);
+                UserList = new MultiSelectList(users, "ID", "Username"),
+                SelectedUsers = (IEnumerable<int>)_context.Enrollment.Select(m => m.UserID)
+            };
+            ViewData["TrainingID"] = new SelectList(_context.Training, "ID", "TrainingName");
+            return View(viewmodel);
         }
 
-        // GET: EnrollmentsAdmin/Create
-        public IActionResult Create()
-        {
-            ViewData["TrainingID"] = new SelectList(_context.Training, "ID", "CompanyCoache");
-            ViewData["UserID"] = new SelectList(_context.User, "ID", "Embg");
-            return View();
-        }
-
-        // POST: EnrollmentsAdmin/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,StartDate,FinishDate,Owe,UserID,TrainingID")] Enrollment enrollment)
+        public async Task<IActionResult> Administrator_Create(EnrolAdminVM viewmodel)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(enrollment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TrainingID"] = new SelectList(_context.Training, "ID", "CompanyCoache", enrollment.TrainingID);
-            ViewData["UserID"] = new SelectList(_context.User, "ID", "Embg", enrollment.UserID);
-            return View(enrollment);
-        }
-
-        // GET: EnrollmentsAdmin/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var enrollment = await _context.Enrollment.FindAsync(id);
-            if (enrollment == null)
-            {
-                return NotFound();
-            }
-            ViewData["TrainingID"] = new SelectList(_context.Training, "ID", "CompanyCoache", enrollment.TrainingID);
-            ViewData["UserID"] = new SelectList(_context.User, "ID", "Embg", enrollment.UserID);
-            return View(enrollment);
-        }
-
-        // POST: EnrollmentsAdmin/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,StartDate,FinishDate,Owe,UserID,TrainingID")] Enrollment enrollment)
-        {
-            if (id != enrollment.ID)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(enrollment);
+                    IEnumerable<int> listUsers = viewmodel.SelectedUsers;
+                    IQueryable<User> toBeRemoved = _context.User.Where(s => !listUsers.Contains(s.ID) && s.ID == viewmodel.UserID); //?
+                    _context.User.RemoveRange(toBeRemoved);
+                    IEnumerable<int> existUsers = _context.Enrollment.Where(s => listUsers.Contains(s.UserID) && s.TrainingID == viewmodel.TrainingID).Select(s => s.UserID);
+                    IEnumerable<int> newUsers = listUsers.Where(s => !existUsers.Contains(s));
+                    /*var enrollment = await _context.Enrollment.FindAsync(id);*/
+                    foreach (int usID in newUsers)
+                        _context.Enrollment.Add(new Enrollment
+                        {
+                            UserID = usID,
+                            TrainingID = viewmodel.TrainingID,
+                            StartDate = null,
+                            FinishDate = null,
+                            Owe = 0
+                            
+                        });
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EnrollmentExists(enrollment.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!EnrollmentExists(viewmodel.ID)) { return NotFound(); }
+                    else { throw; }
                 }
-                return RedirectToAction(nameof(Index));
+                ViewData["TrainingID"] = new SelectList(_context.Training, "ID", "TrainingName", viewmodel.TrainingID);
+                return RedirectToAction("Index", "Enrollments");
             }
-            ViewData["TrainingID"] = new SelectList(_context.Training, "ID", "CompanyCoache", enrollment.TrainingID);
-            ViewData["UserID"] = new SelectList(_context.User, "ID", "Embg", enrollment.UserID);
-            return View(enrollment);
+            return View(viewmodel);
         }
 
-        // GET: EnrollmentsAdmin/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var enrollment = await _context.Enrollment
-                .Include(e => e.Training)
-                .Include(e => e.User)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (enrollment == null)
-            {
-                return NotFound();
-            }
-
-            return View(enrollment);
-        }
-
-        // POST: EnrollmentsAdmin/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var enrollment = await _context.Enrollment.FindAsync(id);
-            _context.Enrollment.Remove(enrollment);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
+        
         private bool EnrollmentExists(int id)
         {
             return _context.Enrollment.Any(e => e.ID == id);

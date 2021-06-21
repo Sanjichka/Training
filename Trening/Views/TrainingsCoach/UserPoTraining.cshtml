@@ -1,0 +1,50 @@
+﻿@model Trening.ViewModels.Filter6
+
+@{
+    ViewData["Title"] = "Users_Debt";
+}
+
+<br />
+<h4 style="color:#ff5660; font-size:x-large">Training: @ViewData["Training"]</h4>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enrollments.FirstOrDefault().Owe)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ decimal vk = 0;}
+        @foreach (var i in Model.Enrollments)
+        {
+            <tr>
+                @{string u = Model.Users.Where(x => x.ID == i.UserID).FirstOrDefault().Username;}
+
+                <td>
+                    <h6>@u</h6>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Owe)
+                    @{ vk += i.Owe;}
+                </td>
+            </tr>
+
+        }
+        <tr>
+            <td>
+                <h5>Total Debt From All Users</h5>
+            </td>
+            <td>
+                <h5>@vk</h5>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

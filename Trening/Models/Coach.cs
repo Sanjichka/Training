@@ -31,6 +31,14 @@ namespace Trening.Models
         [StringLength(100)]
         public string Certificates { get; set; }
 
+        [StringLength(20)]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string Mail { get; set; }
+
         public ICollection<Training> Training { get; set; }
 
     }
