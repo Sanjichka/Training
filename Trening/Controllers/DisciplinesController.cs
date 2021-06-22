@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,17 +20,20 @@ namespace Trening.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Disciplines
         public async Task<IActionResult> Index()
         {
             return View(await _context.Discipline.ToListAsync());
         }
 
+        [Authorize(Roles = "Userr, Coach")]
         public async Task<IActionResult> Index1()
         {
             return View(await _context.Discipline.ToListAsync());
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Disciplines/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -50,6 +54,7 @@ namespace Trening.Controllers
             return View(discipline);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Disciplines/Create
         public IActionResult Create()
         {
@@ -61,6 +66,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("ID,DisciplineName,Type,Equipment,Ground")] Discipline discipline)
         {
             if (ModelState.IsValid)
@@ -73,6 +79,7 @@ namespace Trening.Controllers
         }
 
         // GET: Disciplines/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,6 +100,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,DisciplineName,Type,Equipment,Ground")] Discipline discipline)
         {
             if (id != discipline.ID)
@@ -124,6 +132,7 @@ namespace Trening.Controllers
         }
 
         // GET: Disciplines/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -143,6 +152,7 @@ namespace Trening.Controllers
 
         // POST: Disciplines/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -152,6 +162,7 @@ namespace Trening.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin, Userr, Coach")]
         private bool DisciplineExists(int id)
         {
             return _context.Discipline.Any(e => e.ID == id);

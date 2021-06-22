@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace Trening.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Trainings
         public IActionResult Index(int searchBrMesec, string searchName, decimal searchPrice)
         {
@@ -49,6 +51,7 @@ namespace Trening.Controllers
             return View(VM);
         }
 
+        [Authorize(Roles = "Userr, Admin, Coach")]
         public IActionResult CoachPoTraining(int? id)
         {
             Coach coach = _context.Training.Where(s => s.ID == id).Select(s => s.Coach).FirstOrDefault();
@@ -58,6 +61,7 @@ namespace Trening.Controllers
             return View(coach);
         }
 
+        [Authorize(Roles = "Userr, Admin, Coach")]
         public IActionResult CoachPoTraining1(int? id)
         {
             Coach coach = _context.Training.Where(s => s.ID == id).Select(s => s.Coach).FirstOrDefault();
@@ -77,6 +81,7 @@ namespace Trening.Controllers
             return View(users);
         }*/
 
+        [Authorize(Roles = "Admin")]
         public IActionResult UsersPoTraining(int? id)
         {
             IQueryable<User> users = _context.User.AsQueryable();
@@ -96,7 +101,7 @@ namespace Trening.Controllers
             return View(users);
         }
 
-
+        [Authorize(Roles = "Userr, Admin, Coach")]
         // GET: Trainings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -118,6 +123,8 @@ namespace Trening.Controllers
             return View(training);
         }
 
+
+        [Authorize(Roles = "Userr, Admin, Coach")]
         public async Task<IActionResult> Details1(int? id)
         {
             if (id == null)
@@ -139,6 +146,7 @@ namespace Trening.Controllers
         }
 
         // GET: Trainings/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["CoachID"] = new SelectList(_context.Coach, "ID", "Username");
@@ -150,6 +158,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("ID,TrainingName,Platform,LinkPlatform,CompanyCoache,StartDate,Price,Discipline,NumClMonth,CoachID")] Training training)
         {
             if (ModelState.IsValid)
@@ -163,6 +172,7 @@ namespace Trening.Controllers
         }
 
         // GET: Trainings/Edit/5
+        [Authorize(Roles = "Admin, Coach")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -184,6 +194,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Coach")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,TrainingName,Platform,LinkPlatform,CompanyCoache,StartDate,Price,Discipline,NumClMonth,CoachID")] Training training)
         {
             if (id != training.ID)
@@ -216,6 +227,7 @@ namespace Trening.Controllers
         }
 
         // GET: Trainings/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -237,6 +249,7 @@ namespace Trening.Controllers
         // POST: Trainings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var training = await _context.Training.FindAsync(id);
@@ -245,6 +258,7 @@ namespace Trening.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin, Coach, Userr")]
         private bool TrainingExists(int id)
         {
             return _context.Training.Any(e => e.ID == id);

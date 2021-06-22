@@ -1,7 +1,7 @@
 ﻿@{
-    if (User.IsInRole("Admin"))
+    if (User.IsInRole("Userr"))
     {
-        Layout = "~/Views/Shared/_Layout.cshtml";
+        Layout = "~/Views/Shared/_Layout_User.cshtml";
     }
     else if (User.IsInRole("Coach"))
     {

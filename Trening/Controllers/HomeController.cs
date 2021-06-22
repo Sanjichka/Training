@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,19 @@ namespace Trening.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = "Coach, Admin, Userr")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Coach, Admin, Userr")]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [Authorize(Roles = "Coach, Admin, Userr")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

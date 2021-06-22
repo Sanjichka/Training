@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,6 +25,7 @@ namespace Trening.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Coaches
         public IActionResult Index(string searchUsername, string searchRank)
         {
@@ -50,6 +52,7 @@ namespace Trening.Controllers
             return View(VM);
         }
 
+        [Authorize(Roles = "Userr, Admin, Coach")]
         // GET: Coaches/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -70,6 +73,7 @@ namespace Trening.Controllers
             return View(coach);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Coaches/Create
         public IActionResult Create()
         {
@@ -81,6 +85,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("ID,Username,ProfilePicture,BirthDate,ExerciseRank,Awards,Certificates,PhoneNumber,Mail")] Coach coach)
         {
             if (ModelState.IsValid)
@@ -92,6 +97,7 @@ namespace Trening.Controllers
             return View(coach);
         }
 
+        [Authorize(Roles = "Admin, Coach")]
         // GET: Coaches/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -113,6 +119,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Coach")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Username,ProfilePicture,BirthDate,ExerciseRank,Awards,Certificates,PhoneNumber,Mail")] Coach coach)
         {
             if (id != coach.ID)
@@ -144,6 +151,7 @@ namespace Trening.Controllers
         }
 
         // GET: Coaches/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -164,6 +172,7 @@ namespace Trening.Controllers
         // POST: Coaches/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var coach = await _context.Coach.FindAsync(id);
@@ -172,6 +181,7 @@ namespace Trening.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin, Coach, Userr")]
         private bool CoachExists(int id)
         {
             return _context.Coach.Any(e => e.ID == id);

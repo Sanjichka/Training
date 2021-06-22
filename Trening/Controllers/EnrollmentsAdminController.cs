@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,8 @@ namespace Trening.Controllers
         {
             _context = context;
         }
-        
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Administrator_Create()
         {
 
@@ -36,6 +38,7 @@ namespace Trening.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Administrator_Create(EnrolAdminVM viewmodel)
         {
             if (ModelState.IsValid)
@@ -71,7 +74,7 @@ namespace Trening.Controllers
             return View(viewmodel);
         }
 
-        
+        [Authorize(Roles = "Admin")]
         private bool EnrollmentExists(int id)
         {
             return _context.Enrollment.Any(e => e.ID == id);

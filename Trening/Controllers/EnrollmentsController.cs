@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace Trening.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Enrollments
         public async Task<IActionResult> Index()
         {
@@ -26,6 +28,7 @@ namespace Trening.Controllers
             return View(await treningContext.ToListAsync());
         }
 
+        [Authorize(Roles = "Admin, Coach, Userr")]
         // GET: Enrollments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -48,6 +51,7 @@ namespace Trening.Controllers
             return View(enrollment);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Enrollments/Create
         public IActionResult Create()
         {
@@ -61,6 +65,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("ID,StartDate,FinishDate,Owe,UserID,TrainingID")] Enrollment enrollment)
         {
             if (ModelState.IsValid)
@@ -74,6 +79,7 @@ namespace Trening.Controllers
             return View(enrollment);
         }
 
+        [Authorize(Roles = "Admin, Coach")]
         // GET: Enrollments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -97,6 +103,7 @@ namespace Trening.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Coach")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,StartDate,FinishDate,Owe,UserID,TrainingID")] Enrollment enrollment)
         {
             if (id != enrollment.ID)
@@ -130,6 +137,7 @@ namespace Trening.Controllers
         }
 
         // GET: Enrollments/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -152,6 +160,7 @@ namespace Trening.Controllers
         // POST: Enrollments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var enrollment = await _context.Enrollment.FindAsync(id);
@@ -160,6 +169,7 @@ namespace Trening.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin, Coach, Userr")]
         private bool EnrollmentExists(int id)
         {
             return _context.Enrollment.Any(e => e.ID == id);

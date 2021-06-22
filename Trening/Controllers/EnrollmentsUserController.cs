@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace Trening.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Userr")]
         // GET: EnrollmentsUser
         public IActionResult Index(int? id)
         {
@@ -46,6 +48,7 @@ namespace Trening.Controllers
             return View(vm);
         }
 
+        [Authorize(Roles = "Userr")]
         // GET: EnrollmentsUser/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -66,6 +69,7 @@ namespace Trening.Controllers
             return View(enrollment);
         }
 
+        [Authorize(Roles = "Userr")]
         private bool EnrollmentExists(int id)
         {
             return _context.Enrollment.Any(e => e.ID == id);
