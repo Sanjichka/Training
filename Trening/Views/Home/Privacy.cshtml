@@ -1,9 +1,32 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<br />
-<h1 style="font-weight: bolder; text-shadow: #ff5660 3px 2px 10px;">@ViewData["Title"]</h1>
+@{
+    if (User.IsInRole("Userr"))
+    {
+        <br />
+        <h1 style="font-weight: bolder; text-shadow: #62a7f5 3px 2px 10px;">@ViewData["Title"]</h1>
 
-<br />
-<p class="text-dark" style="font-weight:600; text-shadow: #ff5660 2px 2px 8px; ">How we use your private information</p>
-<p style="text-shadow: #ff5660 3px 2px 10px;">Be sure about your safety while using our app</p>
+        <br />
+        <p class="text-dark" style="font-weight: 600; text-shadow: #62a7f5 2px 2px 8px; ">How we use your private information</p>
+        <p style="text-shadow: #62a7f5 3px 2px 10px;">Be sure about your safety while using our app</p>
+    }
+    else if (User.IsInRole("Coach"))
+    {
+        <br />
+        <h1 style="font-weight: bolder; text-shadow: #85fa59 3px 2px 10px;">@ViewData["Title"]</h1>
+
+        <br />
+        <p class="text-dark" style="font-weight: 600; text-shadow: #85fa59 2px 2px 8px; ">How we use your private information</p>
+        <p style="text-shadow: #85fa59 3px 2px 10px;">Be sure about your safety while using our app</p>
+    }
+    else
+    {
+        <br />
+        <h1 style="font-weight: bolder; text-shadow: #ff5660 3px 2px 10px;">@ViewData["Title"]</h1>
+
+        <br />
+        <p class="text-dark" style="font-weight:600; text-shadow: #ff5660 2px 2px 8px; ">How we use your private information</p>
+        <p style="text-shadow: #ff5660 3px 2px 10px;">Be sure about your safety while using our app</p>
+    }
+}

@@ -76,6 +76,8 @@ namespace Trening.Controllers
                 return NotFound();
             }
 
+            ViewData["T"] = training.TrainingName;
+
             return View(training);
         }
 

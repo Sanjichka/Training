@@ -4,10 +4,26 @@
     ViewData["Title"] = "Details";
 }
 
-<br />
-<h1 style="color:#ff5660">Details for Training: @ViewData["T"]</h1>
-<br />
-
+@{
+    if (User.IsInRole("Userr"))
+    {
+        <br />
+        <h1 style="color: #62a7f5 ">Details for Training: @ViewData["T"]</h1>
+        <br />
+    }
+    else if (User.IsInRole("Coach"))
+    {
+        <br />
+        <h1 style="color: #57d627 ">Details for Training: @ViewData["T"]</h1>
+        <br />
+    }
+    else
+    {
+        <br />
+        <h1 style="color:#ff5660">Details for Training: @ViewData["T"]</h1>
+        <br />
+    }
+}
 <div>
     <hr />
     <dl class="row">

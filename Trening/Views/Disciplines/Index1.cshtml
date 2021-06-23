@@ -4,9 +4,27 @@
     ViewData["Title"] = "Index";
 }
 
-<br />
-<h1 style="color:#ff5660; font-size:x-large">Disciplines Chart</h1>
-<br />
+@{
+    if (User.IsInRole("Userr"))
+    {
+        <br />
+        <h1 style="color: #62a7f5; font-size: x-large">Disciplines Chart</h1>
+        <br />
+    }
+    else if (User.IsInRole("Coach"))
+    {
+        <br />
+        <h1 style="color: #57d627; font-size: x-large">Disciplines Chart</h1>
+        <br />
+    }
+    else
+    {
+        <br />
+        <h1 style="color:#ff5660; font-size:x-large">Disciplines Chart</h1>
+        <br />
+    }
+}
+
 
 <table class="table">
     <thead>

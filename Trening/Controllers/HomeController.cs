@@ -26,6 +26,18 @@ namespace Trening.Controllers
         }
 
         [Authorize(Roles = "Coach, Admin, Userr")]
+        public IActionResult Index_Coach()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Coach, Admin, Userr")]
+        public IActionResult Index_Userr()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Coach, Admin, Userr")]
         public IActionResult Privacy()
         {
             return View();

@@ -21,7 +21,7 @@ namespace Trening.Controllers
             _context = context;
         }
 
-        [Authorize(Roles = "Userr")]
+        [Authorize(Roles = "Userr, Admin")]
         // GET: EnrollmentsUser
         public IActionResult Index(int? id)
         {
@@ -48,7 +48,7 @@ namespace Trening.Controllers
             return View(vm);
         }
 
-        [Authorize(Roles = "Userr")]
+        [Authorize(Roles = "Userr, Admin")]
         // GET: EnrollmentsUser/Details/5
         public async Task<IActionResult> Details(int? id)
         {

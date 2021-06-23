@@ -1,16 +1,46 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <br />
-    <br />
-    <br />
-    <h1 class="display-4 text-dark" style="font-weight: bolder; text-shadow: #ff5660 3px 2px 10px;">Welcome</h1>
-    <h1 class="display-4 text-dark" style="font-weight: bolder; text-shadow: #ff5660 3px 2px 10px;">Administrator</h1>
-    <img src=".\wel/wel.png" alt="welcome">
-    <br />
-    <p style="border-bottom: 3px solid #ff5660;
+@{
+    if (User.IsInRole("Userr"))
+    {
+        <div class="text-center">
+            <br />
+            <br />
+            <br />
+            <h1 class="display-4 text-dark" style="font-weight: bolder; text-shadow: #62a7f5 3px 2px 10px;">Welcome</h1>
+            <h1 class="display-4 text-dark" style="font-weight: bolder; text-shadow: #62a7f5 3px 2px 10px;">User</h1>
+            <img src=".\wel/userr.png" alt="welcome" width = "110" height = "110">
+            <br />
+            <p style="border-bottom: 3px solid #62a7f5; border-bottom-width: 10px; font-weight: bold; text-shadow: #62a7f5 1px 1px 5px; ">What do you need to check now? </p>
+        </div>
+    }
+    else if (User.IsInRole("Coach"))
+    {
+        <div class="text-center">
+            <br />
+            <br />
+            <br />
+            <h1 class="display-4 text-dark" style="font-weight: bolder; text-shadow: #57d627 3px 2px 10px;">Welcome</h1>
+            <h1 class="display-4 text-dark" style="font-weight: bolder; text-shadow: #57d627 3px 2px 10px;">Coach</h1>
+            <img src=".\wel/coach.png" alt="welcome" width = "110" height = "110">
+            <br />
+            <p style="border-bottom: 3px solid #57d627; border-bottom-width: 10px; font-weight: bold; text-shadow: #57d627 1px 1px 5px; ">What do you need to monitor now? </p>
+        </div>
+    }
+    else
+    {
+        <div class="text-center">
+            <br />
+            <br />
+            <br />
+            <h1 class="display-4 text-dark" style="font-weight: bolder; text-shadow: #ff5660 3px 2px 10px;">Welcome</h1>
+            <h1 class="display-4 text-dark" style="font-weight: bolder; text-shadow: #ff5660 3px 2px 10px;">Administrator</h1>
+            <img src=".\wel/wel.png" alt="welcome">
+            <br />
+            <p style="border-bottom: 3px solid #ff5660;
         border-bottom-width: 10px; font-weight: bold;
         text-shadow: #ff5660 1px 1px 5px;">What do you need to change now? </p>
-</div>
+        </div>
+    }
+}

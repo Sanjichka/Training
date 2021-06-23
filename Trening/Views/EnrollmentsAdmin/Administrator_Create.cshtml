@@ -4,16 +4,17 @@
     ViewData["Title"] = "Enroll";
 }
 
-<h1>Create</h1>
+<br />
+<h1 style="color:#ff5660">Enroll Users to Some Training</h1>
+<br />
 
-<h4>Enrollment</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Administrator_Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="TrainingID" class="control-label">Course</label>
+                <label asp-for="TrainingID" class="control-label">Training</label>
                 <select asp-for="TrainingID" class="form-control" asp-items="ViewBag.TrainingID"></select>
             </div>
             <div class="form-group">

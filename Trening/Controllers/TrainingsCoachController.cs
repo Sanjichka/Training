@@ -31,6 +31,28 @@ namespace Trening.Controllers
         }
 
         [Authorize(Roles = "Coach")]
+        public IActionResult Index_Sebe(int id, string searchType)
+        {
+            IQueryable<Training> trainings = _context.Training.AsQueryable();
+
+            trainings = trainings.Where(s => s.CoachID != id);
+
+            IQueryable<string> query = trainings.OrderBy(m => m.Discipline).Select(m => m.Discipline).Distinct();
+            if (!string.IsNullOrEmpty(searchType))
+            {
+                trainings = trainings.Where(s => s.Discipline == searchType);
+            }
+
+            var VM = new Filter4
+            {
+                TypeList = new SelectList(query.AsEnumerable()),
+                Trainings = trainings.AsEnumerable()
+            };
+
+            return View(VM);
+        }
+
+        [Authorize(Roles = "Coach")]
         public IActionResult UserPoTraining(int? id)
         {
             IQueryable<User> users = _context.User.AsQueryable();
@@ -127,6 +149,8 @@ namespace Trening.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["T"] = training.TrainingName;
 
             return View(training);
         }

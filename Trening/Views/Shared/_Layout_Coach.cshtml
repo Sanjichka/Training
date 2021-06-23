@@ -12,22 +12,24 @@
         }
 
         footer {
-            background-color: #ff5660;
+            background-color: #57d627;
         }
 
         a {
-            color: #ff5660;
+            color: #57d627;
             text-decoration: underline;
+            font-weight: bold;
         }
 
             a:hover {
                 color: #0a6fe1;
+                font-weight: bold;
             }
     </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #ff5660">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #57d627 ">
             <div class="container">
                 <a class="navbar-brand text-dark" asp-area="" asp-controller="Home" asp-action="Index" style="font-weight: bolder; font-size:x-large"><img src="~/wel/home.png" alt="home" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -38,7 +40,13 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" style="font-weight: bolder; font-size:x-large" asp-area="" asp-controller="TrainingsCoach" asp-route-id="1" asp-action="Index">Trainings</a>
+                            <a class="nav-link text-dark" style="font-weight: bolder; font-size:x-large" asp-area="" asp-controller="Coaches" asp-route-id="1" asp-action="Profil_Coach">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" style="font-weight: bolder; font-size:x-large" asp-area="" asp-controller="TrainingsCoach" asp-route-id="1" asp-action="Index">Trainings(mine)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" style="font-weight: bolder; font-size:x-large" asp-area="" asp-controller="TrainingsCoach" asp-route-id="1" asp-action="Index_Sebe">Trainings(other)</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" style="font-weight: bolder; font-size:x-large" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

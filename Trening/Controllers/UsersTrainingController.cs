@@ -22,7 +22,7 @@ namespace Trening.Controllers
             _context = context;
         }
 
-        [Authorize(Roles = "Userr")]
+        [Authorize(Roles = "Userr, Admin")]
         // GET: UsersTraining
         public IActionResult Index(int? id)
         {
@@ -49,7 +49,7 @@ namespace Trening.Controllers
             return View(vm);
         }
 
-        [Authorize(Roles = "Userr")]
+        [Authorize(Roles = "Userr, Admin")]
         // GET: UsersTraining/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -70,7 +70,7 @@ namespace Trening.Controllers
             return View(user);
         }
 
-        [Authorize(Roles = "Userr")]
+        [Authorize(Roles = "Userr, Admin")]
 
         private bool UserExists(int id)
         {

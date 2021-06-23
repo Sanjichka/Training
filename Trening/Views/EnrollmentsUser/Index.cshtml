@@ -4,9 +4,27 @@
     ViewData["Title"] = "EnrollmentsUser";
 }
 
-<br />
-<h4 style="color:#ff5660; font-weight:bolder">Trainings for User: @ViewData["User"]</h4>
-<br />
+@{
+    if (User.IsInRole("Userr"))
+    {
+        <br />
+        <h4 style="color: #62a7f5; font-weight: bolder">Trainings for User: @ViewData["User"]</h4>
+        <br />
+    }
+    else if (User.IsInRole("Coach"))
+    {
+        <br />
+        <h4 style="color: #57d627; font-weight: bolder">Trainings for User: @ViewData["User"]</h4>
+        <br />
+    }
+    else
+    {
+        <br />
+        <h4 style="color: #ff5660; font-weight: bolder">Trainings for User: @ViewData["User"]</h4>
+        <br />
+    }
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -29,27 +47,28 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Enrollments) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FinishDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Owe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Embg)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Training.Platform)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Enrollments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinishDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Owe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Embg)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Training.Platform)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -8,16 +8,16 @@
     <a style="font-size: x-large;" asp-controller="Disciplines" asp-action="Index1">View Disciplines Chart</a>
 </p>
 <br />
-<h1 style="color: #62a7f5; font-size: x-large">Other Trainings:</h1>
+<h1 style="color: #57d627; font-size: x-large">Other Trainings:</h1>
 <br />
 
-<form asp-controller="TrainingsUser" asp-action="Index" method="get">
-    <span style="color: #62a7f5; font-size: large; font-weight:bold;">Discipline: </span><select asp-for="searchType" asp-items="Model.TypeList">
+<form asp-controller="TrainingsCoach" asp-action="Index_Sebe" method="get">
+    <span style="color: #57d627; font-size: large; font-weight: bold;">Discipline: </span><select asp-for="searchType" asp-items="Model.TypeList">
         <option value="">All</option>
     </select>
     <span>&nbsp;&nbsp;</span>
     <input type="submit" value="Filter" />
-    <span>| <a style="font-size: large;" asp-action="Index">All Other Trainings</a></span>
+    <span>| <a style="font-size: large;" asp-action="Index_Sebe">All Other Trainings</a></span>
 </form>
 <br />
 
@@ -37,7 +37,7 @@
                 @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().StartDate)
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().Price)
+                @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().Price)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Trainings.FirstOrDefault().NumClMonth)

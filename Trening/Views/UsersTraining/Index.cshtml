@@ -4,9 +4,27 @@
     ViewData["Title"] = "TrainingsUser";
 }
 
-<br />
-<h4 style="color:#ff5660; font-weight:bolder">Trainings for User: @ViewData["User"]</h4>
-<br />
+@{
+    if (User.IsInRole("Userr"))
+    {
+        <br />
+        <h4 style="color: #62a7f5; font-weight: bolder ">Trainings for User: @ViewData["User"]</h4>
+        <br />
+    }
+    else if (User.IsInRole("Coach"))
+    {
+        <br />
+        <h4 style="color: #57d627; font-weight: bolder ">Trainings for User: @ViewData["User"]</h4>
+        <br />
+    }
+    else
+    {
+        <br />
+        <h4 style="color: #ff5660; font-weight: bolder ">Trainings for User: @ViewData["User"]</h4>
+        <br />
+    }
+
+}
 
 <table class="table">
     <thead>
@@ -40,34 +58,35 @@
         {
             var i = Model.Enrollments.FirstOrDefault();
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TrainingName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Platform)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LinkPlatform)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyCoache)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumClMonth)
-                </td>
-                <td>
-                    <a asp-controller="Trainings" asp-action="CoachPoTraining" asp-route-id="@item.ID">Coach</a> |
-                    <a asp-controller="Trainings" asp-action="Details1" asp-route-id="@item.ID">Details_Training</a> |
-                    <a asp-controller="EnrollmentsUser" asp-action="Index" asp-route-id="@i.UserID">Enrollment</a>
-                </td>
-            </tr>}
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrainingName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Platform)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LinkPlatform)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyCoache)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumClMonth)
+                    </td>
+                    <td>
+                        <a asp-controller="Trainings" asp-action="CoachPoTraining" asp-route-id="@item.ID">Coach</a> |
+                        <a asp-controller="Trainings" asp-action="Details1" asp-route-id="@item.ID">Details_Training</a> |
+                        <a asp-controller="EnrollmentsUser" asp-action="Index" asp-route-id="@i.UserID">Enrollment</a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
