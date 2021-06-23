@@ -56,7 +56,26 @@ namespace Trening.Controllers
             return View(VM);
         }
 
+        [Authorize(Roles = "Userr")]
+        public async Task<IActionResult> Profil_User(int? id)
+        {
 
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.User
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["Name"] = user.FullName;
+
+            return View(user);
+        }
 
         [Authorize(Roles = "Admin, Coach, Userr")]
         // GET: Users/Details/5

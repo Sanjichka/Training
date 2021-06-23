@@ -1,0 +1,64 @@
+﻿@model Trening.Models.User
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+<br />
+<br />
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        margin: auto;
+        text-align: center;
+        background-color: #abbeed;
+    }
+
+    .title {
+        color: grey;
+        font-size: 18px;
+    }
+
+    #i {
+        padding-top: 5%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="card">
+    <img id="i" src="~/wel/userr.png" alt="User" height="110" width="110">
+    <br />
+    <h1>@ViewData["Name"]</h1>
+    <br />
+    @{
+        if (Model.gender != null)
+        {
+            if (Model.gender.ToUpper().Equals("F"))
+            {
+                <p>Female</p>
+            }
+            else if (Model.gender.ToUpper().Equals("M"))
+            {
+                <p>Male</p>
+            }
+            else
+                {
+                    <p>Undefined gender</p>
+                }
+        }
+    }
+    <p class="title">@Model.Username</p>
+    <p>@Html.DisplayFor(model => model.ExerciseLevel) Level</p>
+    @{
+        if (Model.PhoneNumber != null)
+        {
+            <p>@Model.PhoneNumber</p>
+        }
+    }
+    <p>@Html.DisplayFor(model => model.Mail)</p>
+</div>
